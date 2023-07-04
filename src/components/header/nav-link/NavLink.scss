@@ -1,0 +1,12 @@
+.navlink {
+  color: white;
+  text-decoration: none;
+
+  &.active {
+    text-decoration: underline;
+  }
+
+  &.pending {
+    text-decoration: dashed;
+  }
+}
