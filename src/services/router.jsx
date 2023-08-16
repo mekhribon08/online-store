@@ -1,12 +1,17 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import About from "../pages/about/About";
+import UnAuthorizedApp from "../components/header/auth/UnAuthorizedApp";
+// import About from "../pages/about/About";
 import Profile from "../pages/about/auth/Profile";
-import Contact from "../pages/about/contact/Contact";
+// import Contact from "../pages/about/contact/Contact";
 import Error from "../pages/about/error/Error";
 import Home from "../pages/about/home/Home";
-import Post from "../pages/about/posts/Post";
-import Posts from "../pages/about/posts/Posts";
+// import Post from "../pages/about/posts/Post";
+// import Posts from "../pages/about/posts/Posts";
+import Cart from "../pages/cart/cart";
+import Categories from "../pages/categories/Categories";
+import Product from "../pages/categories/Product";
+import Products from "../pages/categories/Products";
 
 const router = createBrowserRouter([
   {
@@ -16,13 +21,36 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        index: true,
         element: <Home />,
       },
       {
-        path:"/profile/:id",
+        path:"/profile",
         element:<Profile/>
-      }
+      },
+      {
+        path:"/auth",
+        element:<UnAuthorizedApp/>,
+        index:true
+      },
+      {
+        path:"/login",
+        element:<UnAuthorizedApp registered={false} />,
+      },
+      {
+        path:"/cart",
+        element:< Cart/>,
+      },
+      {
+        path:"/categories/:id",
+        element:< Categories/>,
+      },
+      {
+        path:"/product/:id",
+        element:<Product/>,
+      },{
+        path:"/products/:identifier",
+        element:<Products/>,
+      },
       // {
       //   path: "/about",
       //   element: <About />,

@@ -1,0 +1,28 @@
+.header {
+  position: sticky;
+    top: 0;
+    width: 100%;
+    left: 0;
+    z-index: 100;
+    background-color: #fff;
+    box-shadow: 1px 0px 10px grey ;
+ 
+}
+
+.header__nav  {
+   display: flex;
+   align-items: center;
+  justify-content: space-between;
+  padding: 8px 50px;
+ 
+  & ul {
+    list-style-type: none;
+    display: flex;
+   
+    
+   & li {
+    padding-left: 10px;
+   }
+  }
+ }
+

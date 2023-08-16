@@ -1,11 +1,19 @@
-import { useContext } from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import AuthorizedApp from "./components/header/auth/AuthorizedApp";
 import UnAuthorizedApp from "./components/header/auth/UnAuthorizedApp";
-import { AuthContext } from "./context/AuthContext";
 
 function App() {
-  const { auth } = useContext(AuthContext);
-  return !auth.id ? <AuthorizedApp /> : <UnAuthorizedApp />;
+  const navigate = useNavigate()
+  const token = localStorage.getItem("token" || {token:false})
+  const auth = JSON.parse(token)
+  // if(!auth) return useEffect(() => {
+  //   navigate("/auth");
+  //   <UnAuthorizedApp/>;
+  // }, [])
+  
+  if(!auth) return <UnAuthorizedApp />
+  return (auth.token ? <AuthorizedApp /> : <UnAuthorizedApp />);
 }
 
 export default App;

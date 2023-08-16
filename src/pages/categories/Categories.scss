@@ -1,0 +1,49 @@
+.categories-card-body {
+  width: 40%;
+  border: 1px solid grey;
+  padding: 20px 40px;
+  margin: 20px auto;
+  border-radius: 12px;
+  box-shadow: 1px 1px 10px #ddd;
+  .align-items-center {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+  img {
+    border-radius: 12px;
+    width: 50%;
+    height: 50%;
+    margin: auto;
+  }
+}
+.spinner-border {
+  width: 10rem;
+  height: 10rem;
+}
+
+.form-outline {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  input {
+    max-width: 80%;
+  }
+}
+
+.form {
+display: flex;
+justify-content: center;
+margin-top: 40px;
+gap: 15px;
+
+
+
+input {
+  border:1.5px solid gray;
+  padding-left: 12px;
+  border-radius: 12px;
+  box-shadow: 1px 1px 10px #ddd;
+}
+}
