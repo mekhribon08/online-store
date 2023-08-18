@@ -17,85 +17,76 @@ export default function UnAuthorizedApp({ registered = true }) {
   const tokenJson = localStorage.getItem("token");
   const token = JSON.parse(tokenJson);
   const [register, setRegister] = useState(false);
-  if (!token)
-    useEffect(() => {
-      navigate("/auth");
-    }, []);
+  if (!token) navigate("/auth");
   const { setAuth } = useContext(AuthContext);
   async function registerUser(form) {
     form.preventDefault();
     const formD = new FormData(form.target);
-    useEffect(() => {
-      fetch("https://api.escuelajs.co/api/v1/users", {
-        method: "POST",
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTY3Mjc2NjAyOCwiZXhwIjoxNjc0NDk0MDI4fQ.kCak9sLJr74frSRVQp0_27BY4iBCgQSmoT3vQVWKzJg",
-          "Content-type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          name: formD.get("name"),
-          email: formD.get("email"),
-          password: formD.get("password"),
-          avatar: "https://pngtree.com/so/avatar",
-        }),
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          localStorage.setItem(
-            "id",
-            JSON.stringify({
-              id: res.id,
-            })
-          );
-          setAuth(res.id);
-          navigate(`/login`);
-        });
-    }, []);
+    fetch("https://api.escuelajs.co/api/v1/users", {
+      method: "POST",
+      headers: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTY3Mjc2NjAyOCwiZXhwIjoxNjc0NDk0MDI4fQ.kCak9sLJr74frSRVQp0_27BY4iBCgQSmoT3vQVWKzJg",
+        "Content-type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        name: formD.get("name"),
+        email: formD.get("email"),
+        password: formD.get("password"),
+        avatar: "https://pngtree.com/so/avatar",
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        localStorage.setItem(
+          "id",
+          JSON.stringify({
+            id: res.id,
+          })
+        );
+        setAuth(res.id);
+        navigate(`/login`);
+      });
   }
   async function loginUser(form) {
     form.preventDefault();
     const formD = new FormData(form.target);
-    useEffect(() => {
-      fetch("https://api.escuelajs.co/api/v1/auth/login", {
-        method: "POST",
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTY3Mjc2NjAyOCwiZXhwIjoxNjc0NDk0MDI4fQ.kCak9sLJr74frSRVQp0_27BY4iBCgQSmoT3vQVWKzJg",
-          "Content-type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          email: formD.get("email"),
-          password: formD.get("password"),
-        }),
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          if (+res.statusCode == 401) {
-            setRegister(true);
-          }
-          if (+res.statusCode == 401) {
-            setRegister(true);
-          }
-          localStorage.setItem(
-            "token",
-            JSON.stringify({
-              token: res.access_token,
-            })
-          );
-          setAuth(res.access__token);
-        });
-    }, []);
-    useEffect(() => {
-      fetch(`https://api.escuelajs.co/api/v1/auth/profile`, {
-        headers: {
-          Authorization: `Bearer ${token.token}`,
-        },
+    fetch("https://api.escuelajs.co/api/v1/auth/login", {
+      method: "POST",
+      headers: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTY3Mjc2NjAyOCwiZXhwIjoxNjc0NDk0MDI4fQ.kCak9sLJr74frSRVQp0_27BY4iBCgQSmoT3vQVWKzJg",
+        "Content-type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        email: formD.get("email"),
+        password: formD.get("password"),
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (+res.statusCode == 401) {
+          setRegister(true);
+        }
+        if (+res.statusCode == 401) {
+          setRegister(true);
+        }
+        localStorage.setItem(
+          "token",
+          JSON.stringify({
+            token: res.access_token,
+          })
+        );
+        setAuth(res.access__token);
       });
-      navigate(`/profile`);
-    }, []);
+    fetch(`https://api.escuelajs.co/api/v1/auth/profile`, {
+      headers: {
+        Authorization: `Bearer ${token.token}`,
+      },
+    });
+    navigate(`/profile`);
   }
   const [justifyActive, setJustifyActive] = useState(
     registered ? "tab2" : "tab1"
